@@ -4,20 +4,21 @@
 <title>STM32F2xxCNT</title>
 <meta http-equiv="Content-Language" content="ru">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<meta http-equiv="refresh" content="1">
+<!--<meta http-equiv="refresh" content="10">-->
 <meta content="MSHTML 6.00.2900.3698" name="GENERATOR">
 </head>
 <body>
-<h4 style="text-align: center;">Счетчик STM32</h4>
+<h4 style="text-align: center;">Результаты сканирования SD карты</h4>
 <br>
 <table align="center" border="1" cellpadding="5" cellspacing="1">
 <tbody>
 <tr>
-<td>Счетчик</td>
-<td><!--#p-->&nbsp </td>
-<td><!--#r-->&nbsp </td>
-<td><!--#s-->&nbsp </td>
-<td><!--#t-->&nbsp </td>
+<td>Количество обнаруженных директорий</td>
+<td><!--#d-->&nbsp </td>
+</tr>
+<tr>
+<td>Количество обнаруженных файлов</td>
+<td><!--#f-->&nbsp </td>
 </tr>
 </tbody>
 </table>

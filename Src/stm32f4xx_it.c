@@ -36,7 +36,15 @@
 #include "stm32f4xx_it.h"
 
 /* USER CODE BEGIN 0 */
-
+#include "lwip.h"
+#define PHY_MISR_ED_INT       	      ((uint16_t)0x4000U)  /*!< Interrupt on change of energy detect event    */
+#define PHY_MISR_LINK_INT             ((uint16_t)0x2000U)  /*!< Interrupt on change of link status       */
+extern SD_HandleTypeDef hsd;
+extern ETH_HandleTypeDef heth;
+//extern HAL_SD_CardStatusTypeDef pCardStatus;
+extern struct netif gnetif;
+uint16_t ETH_status;
+uint16_t SD_Card_status;
 /* USER CODE END 0 */
 
 /* External variables --------------------------------------------------------*/
@@ -190,6 +198,59 @@ void SysTick_Handler(void)
 /* For the available peripheral interrupt handler names,                      */
 /* please refer to the startup file (startup_stm32f4xx.s).                    */
 /******************************************************************************/
+
+/**
+* @brief This function handles EXTI line2 interrupt.
+*/
+void EXTI2_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI2_IRQn 0 */
+	if (EXTI->PR & EXTI_PR_PR2)
+		EXTI->PR |= EXTI_PR_PR2;
+	
+	uint32_t regvalue = 0;
+
+	HAL_ETH_ReadPHYRegister(&heth, PHY_MISR, &regvalue);
+  //if (regvalue & PHY_MISR_ED_INT)
+	//	ETH_status |= PHY_MISR_ED_INT;
+	if (regvalue & PHY_MISR_LINK_INT)
+	{
+		//regvalue = 0;
+		HAL_ETH_ReadPHYRegister(&heth, PHY_SR, &regvalue);
+		if (regvalue & 1)
+			//1 - link is up, 0 - no link
+			ETH_status = PHY_MISR_LINK_INT + 1;
+		else 
+			ETH_status = PHY_MISR_LINK_INT;
+	}
+  /* USER CODE END EXTI2_IRQn 0 */
+  //HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_2);
+  /* USER CODE BEGIN EXTI2_IRQn 1 */
+
+  /* USER CODE END EXTI2_IRQn 1 */
+}
+
+/**
+* @brief This function handles EXTI line[15:10] interrupts.
+*/
+void EXTI15_10_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI15_10_IRQn 0 */
+	if (EXTI->PR & EXTI_PR_PR15)
+		EXTI->PR |= EXTI_PR_PR5;
+	//HAL_SD_CardStatusTypeDef pCardStatus;
+	//if (HAL_SD_GetCardStatus(&hsd, &pCardStatus) != ERR_OK)
+	if (HAL_SD_GetCardState(&hsd) != HAL_SD_CARD_DISCONNECTED || 
+		HAL_SD_GetCardState(&hsd) != HAL_SD_CARD_ERROR)
+		SD_Card_status = 1;
+	else
+		SD_Card_status = 0;
+  /* USER CODE END EXTI15_10_IRQn 0 */
+  //HAL_GPIO_EXTI_IRQHandler(GPIO_PIN_15);
+  /* USER CODE BEGIN EXTI15_10_IRQn 1 */
+
+  /* USER CODE END EXTI15_10_IRQn 1 */
+}
 
 /* USER CODE BEGIN 1 */
 

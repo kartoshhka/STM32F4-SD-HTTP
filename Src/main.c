@@ -76,9 +76,9 @@ void SystemClock_Config(void);
 /* USER CODE END PFP */
 
 /* USER CODE BEGIN 0 */
-FATFS SDFatFs;  /* File system object for SD card logical drive */
-FIL MyFile;     /* File object */
-extern char SDPath[4];  /* SD logical drive path */
+//FATFS SDFatFs, PCFatFs;  /* File system object for SD card logical drive */
+//FIL fsd, fpc;     /* File object */
+//extern char SDPath[4];  /* SD logical drive path */
 /* USER CODE END 0 */
 
 /**
@@ -114,6 +114,9 @@ int main(void)
   MX_SDIO_SD_Init();
   MX_FATFS_Init();
   /* USER CODE BEGIN 2 */
+	//Diodes off
+	HAL_GPIO_WritePin(GPIOD, GPIO_PIN_10 | GPIO_PIN_11 | GPIO_PIN_12, GPIO_PIN_SET);
+	//TSP, HTTP
 	tcp_server_init();
 	httpd_init();
 	//http RX TX
@@ -121,23 +124,6 @@ int main(void)
 	CGI_Init();
 	//net status
 	User_notification(&gnetif);
-	
-	if(f_mount(&SDFatFs, (TCHAR const*)SDPath, 0) != FR_OK)
-  {
-    Error_Handler();
-  }
-  else
-  {
-		/*if(f_open(&MyFile, "my001.txt", FA_READ) != FR_OK)
-		{
-			Error_Handler();
-		}
-		else
-		{
-			HAL_GPIO_WritePin(GPIOD, GPIO_PIN_12, GPIO_PIN_SET);
-			f_close(&MyFile);
-		}*/
-	}
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -193,8 +179,8 @@ void SystemClock_Config(void)
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSE;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
-  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
+  RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK)
   {
