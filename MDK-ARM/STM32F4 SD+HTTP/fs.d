@@ -46,5 +46,13 @@ stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/def.h
 stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/fs.h
 stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/err.h
 stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/LwIP/src/apps/httpd/fsdata.h
+stm32f4 sd+http\fs.o: ../Inc/fatfs.h
+stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/FatFs/src/ff.h
+stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/FatFs/src/integer.h
+stm32f4 sd+http\fs.o: ../Inc/ffconf.h
+stm32f4 sd+http\fs.o: ../Inc/bsp_driver_sd.h
+stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
+stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
+stm32f4 sd+http\fs.o: ../Inc/sd_diskio.h
 stm32f4 sd+http\fs.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 stm32f4 sd+http\fs.o: ../Middlewares/Third_Party/LwIP/src/apps/httpd/fsdata.c

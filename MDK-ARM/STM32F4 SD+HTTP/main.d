@@ -91,3 +91,4 @@ stm32f4 sd+http\main.o: ..\AppNet\Inc\app_ethernet.h
 stm32f4 sd+http\main.o: ..\AppNet\Inc\app_http.h
 stm32f4 sd+http\main.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/httpd.h
 stm32f4 sd+http\main.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/httpd_opts.h
+stm32f4 sd+http\main.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/fs.h

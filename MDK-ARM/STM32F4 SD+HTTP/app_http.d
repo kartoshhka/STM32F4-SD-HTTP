@@ -82,4 +82,5 @@ stm32f4 sd+http\app_http.o: ../Inc/bsp_driver_sd.h
 stm32f4 sd+http\app_http.o: ../Middlewares/Third_Party/FatFs/src/ff_gen_drv.h
 stm32f4 sd+http\app_http.o: ../Middlewares/Third_Party/FatFs/src/diskio.h
 stm32f4 sd+http\app_http.o: ../Inc/sd_diskio.h
+stm32f4 sd+http\app_http.o: ../Middlewares/Third_Party/LwIP/src/include/lwip/apps/fs.h
 stm32f4 sd+http\app_http.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
