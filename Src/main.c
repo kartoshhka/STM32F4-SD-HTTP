@@ -89,7 +89,7 @@ void SystemClock_Config(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
+	
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -124,6 +124,7 @@ int main(void)
 	CGI_Init();
 	//net status
 	User_notification(&gnetif);
+	//Make_HTTP_SDInfo();
   /* USER CODE END 2 */
 
   /* Infinite loop */

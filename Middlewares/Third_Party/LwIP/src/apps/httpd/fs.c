@@ -34,11 +34,9 @@
 #include "lwip/def.h"
 #include "lwip/apps/fs.h"
 #include "fsdata.h"
-#include "fatfs.h"
 #include <string.h>
-///////////////////////////////////
-/* !!!CAREFUL!!! Increasing this number may lead to "not enough memory" error */
-#define ETHERNET_MAX_OPEN_FILES 10
+#include "app_http.h"
+
 
 #if HTTPD_USE_CUSTOM_FSDATA
 #include "fsdata_custom.c"
@@ -59,10 +57,7 @@ int fs_read_async_custom(struct fs_file *file, char *buffer, int count, fs_wait_
 int fs_read_custom(struct fs_file *file, char *buffer, int count);
 #endif /* LWIP_HTTPD_FS_ASYNC_READ */
 #endif /* LWIP_HTTPD_CUSTOM_FILES */
-////////////////////////////////////////////////////////////////////////////
-FATFS fs;  				 /* File system object for SD card logical drive */
-//FIL fsd;     						 /* File object */
-FIL fil[ETHERNET_MAX_OPEN_FILES];
+
 /*-----------------------------------------------------------------------------------*/
 err_t
 fs_open(struct fs_file *file, const char *name)
@@ -184,52 +179,56 @@ fs_bytes_left(struct fs_file *file)
   return file->len - file->index;
 }
 
-int fs_open_custom(struct fs_file *file, const char *name)
-{
-	FRESULT fres;
-	char buffer[100];
-	
-	/* Mount card, it will be mounted when needed */
-	if ((fres = f_mount(&fs, "", 1)) != FR_OK) 
+int fs_open_custom(struct fs_file *file, const char *name) {
+    //open info file
+	FIL fsd;
+	if(strcmp(name,"/SDInfo.txt") == 0)
 	{
-		Error_Handler();
+		if (f_open(&fsd, name, FA_OPEN_EXISTING | FA_READ) != FR_OK)
+			return 0;
+		file->len = f_size(&fsd);
+		file->is_custom_file = 1;
+		/*file->data = (const char *)ReadLongFile();    
+		file->len = sizeof(file->data);
+		file->index = file->len;
+		file->pextension = NULL;
+		file->is_custom_file = 1;
+		file->flags = 0;
+	//0 if unable to open
+		if (file->data[0] == '\0')
+			return 0;*/
+		return 1;
 	}
-	
-	/* Format name, I have on subfolder everything on my SD card */
-	sprintf((char *)buffer, "/%s", name);
-	
-	/* Try to open */
-	fres = f_open(&fil[file->index], buffer, FA_OPEN_EXISTING | FA_READ | FA_WRITE);
-	
-	/* If not opened OK */
-	if (fres != FR_OK) 
-		{
-		/* In case we are only opened file, but we didn't succedded */
-			if (file->index == 0) 
-			{
-					/* Unmount card, for safety reason */
-					f_mount(NULL, "", 1);
-			}
-		/* Return 0, opening error */
-		return 0;
-	}
-	/* !IMPORTANT; Set file size */
-	file->len = f_size(&fil[file->index]);
-	
-	/* Return 1, file opened OK */
-	return 1;
+	return 0;
 }
 
-void fs_close_custom(struct fs_file *file)
-{
-	/* Close file */
-	f_close(&fil[file->index]);
+//read file and fill 'buffer' step by step by 'count' bytes amount
+int fs_read_custom(struct fs_file *file, char *buffer, int count)  {
+	FIL fsd;
+	UINT read = 0; 
+	//open file
+	if (f_open(&fsd, "/SDInfo.txt", FA_OPEN_EXISTING | FA_READ) != FR_OK)
+			return -1;
+	//End of file?
+	if (f_eof(&fsd)) 
+	{
+		return -1;
+	}
+	/* Read max block */
+	if (count > 65535) {
+		count = 65535;
+	}
 	
+	f_read(&fsd, buffer, count, &read);
+	
+	/* Return number of bytes read */
+	return read;
+}
+
+
+void  fs_close_custom(struct fs_file *file) {
+	FIL fsd;
+	f_close(&fsd);
 	/* Unmount in case there is no opened files anymore */
-	if (!file->index) 
-	{
-		/* Unmount, protect SD card */
-		f_mount(NULL, "", 1);
-	}
+	//f_mount(NULL, "", 1);
 }
-

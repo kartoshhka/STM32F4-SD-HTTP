@@ -12,18 +12,17 @@
 <br>
 <table align="center" border="1" cellpadding="5" cellspacing="1">
 <tbody>
-<tr>
-<td>Количество обнаруженных директорий</td>
-<td><!--#d-->&nbsp </td>
-</tr>
-<tr>
-<td>Количество обнаруженных файлов</td>
-<td><!--#f-->&nbsp </td>
-</tr>
-<tr>
-<td>Работа тегов</td>
-<td><!--#s-->&nbsp </td>
-</tr>
+<tr> <td>Количество директорий</td> <td><!--#a-->&nbsp </td> </tr>
+<tr> <td>Количество файлов</td> <td><!--#b-->&nbsp </td> </tr>
+<tr> <td>Размер кластера, КБ</td> <td><!--#c-->&nbsp </td> </tr>
+<tr> <td>Общий объем SD карты, КБ</td> <td><!--#d-->&nbsp </td> </tr>
+<tr> <td>Свободный объем, КБ</td> <td><!--#e-->&nbsp </td> </tr>
 </tbody>
 </table>
+<p align="center">
+   <a href="/index.html">На главную</a>
+</p>
+<p align="center">
+   <a href="/send.html">Записать файл на карту</a>
+</p>
 </body></html>

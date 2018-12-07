@@ -1,8 +1,9 @@
 #MicroXplorer Configuration settings - do not modify
 ETH.IPParameters=MediaInterface
 ETH.MediaInterface=ETH_MEDIA_INTERFACE_MII
-FATFS.IPParameters=_MAX_SS
+FATFS.IPParameters=_MAX_SS,_USE_LFN
 FATFS._MAX_SS=4096
+FATFS._USE_LFN=1
 File.Version=6
 KeepUserPlacement=false
 LWIP.IPParameters=LWIP_HTTPD,LWIP_HTTPD_CGI,LWIP_HTTPD_SSI,TCP_WND,TCP_MSS,TCP_SND_BUF,MEMP_NUM_TCP_SEG

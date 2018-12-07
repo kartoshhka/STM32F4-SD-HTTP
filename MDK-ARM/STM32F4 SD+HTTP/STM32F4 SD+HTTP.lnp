@@ -29,6 +29,7 @@
 "stm32f4 sd+http\stm32f4xx_hal.o"
 "stm32f4 sd+http\system_stm32f4xx.o"
 "stm32f4 sd+http\syscall.o"
+"stm32f4 sd+http\ccsbcs.o"
 "stm32f4 sd+http\diskio.o"
 "stm32f4 sd+http\ff.o"
 "stm32f4 sd+http\ff_gen_drv.o"

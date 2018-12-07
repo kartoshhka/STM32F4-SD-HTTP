@@ -1,13 +1,24 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <html><head><title>STM32F2xxTX</title>
-<meta http-equiv="Content-Type" content="text/html; charset=windows-1252">
+<meta http-equiv="Content-Language" content="ru">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta content="MSHTML 6.00.2800.1561" name="GENERATOR">
 <style ="font-weight: normal; font-family: Verdana;"></style></head>
 <body>
-<h4  style="text-align: center;">Send Form</h4>
+<h4  style="text-align: center;">Запись файла на SD карту</h4>
 <br>
 <form align="center" method="get" action="/msg.cgi">
-<input name="Var1" type="text" size="40">
-<p>
-<input value="Send" type="submit"> </p></form>
+   <p><b>Введите имя файла для записи на карту:</b><Br>
+   <input name="fileName" type="text" size="40"><br></p>
+   <p><b>Введите текст файла (не более 1000 символов):</b><Br>
+   <textarea name="fileText" cols="40" rows="3"></textarea></p>
+   <p>
+   <input value="Записать" type="submit"> </p>
+</form>
+<p align="center">
+   <a href="/index.html">На главную</a>
+</p>
+<p align="center">
+   <a href="/counter.shtml">Сканирование карты</a>
+</p>
 </body></html>
